@@ -1,5 +1,5 @@
 import './styles.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function app() {
   const [flashCard, setFlashCard] = useState({
@@ -8,6 +8,14 @@ export default function app() {
     answer: 'JavaScript kütüphanesi.',
     explanation: `Birinin framework diyebilme cüretini gösterdiğini duyarsanız, onu mümkün olduğunca bilgili bir şekilde düzeltmeniz, tercihen yanıtınıza " aslında..." diye başlamanız önemlidir.`,
   })
+
+  const [click, setClick] = useState(true)
+
+  useEffect(() => {
+    document.addEventListener('click', () => setClick(!click))
+
+    return () => document.removeEventListener('click', () => setClick(!click))
+  }, [click])
 
   /* Challenge: 
 
@@ -23,26 +31,22 @@ export default function app() {
   return (
     <div>
       <header>
-        <img src='./images/react.svg' />
+        <img src="./images/react.svg" />
         <h1> React Çalışma Arkadaşı </h1>
       </header>
 
-      {/*-------Aşağıdaki div'i düzenleyin------------*/}
-
-      <div className='flash-card'>
-        {/*-------Yukarıdaki div'i düzenleyin------------*/}
-
-        <div className='flash-card-inner'>
-          <div className='flash-card-front'>
-            <p className='question'>{flashCard.question}</p>
-            <ol type='a'>
+      <div className={click ? 'flash-card flipped' : 'flash-card'}>
+        <div className="flash-card-inner">
+          <div className="flash-card-front">
+            <p className="question">{flashCard.question}</p>
+            <ol type="a">
               {flashCard.choices.map((choice) => (
                 <li key={crypto.randomUUID()}>{choice}</li>
               ))}
             </ol>
           </div>
-          <div className='flash-card-back'>
-            <p className='answer'>{flashCard.answer}</p>
+          <div className="flash-card-back">
+            <p className="answer">{flashCard.answer}</p>
             <p>{flashCard.explanation}</p>
           </div>
         </div>
