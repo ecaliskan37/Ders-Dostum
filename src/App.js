@@ -32,7 +32,7 @@ export default function app() {
     <div>
       <header>
         <img src="./images/react.svg" />
-        <h1> React Çalışma Arkadaşı </h1>
+        <h1> React Çalışma Arkadaşlarım </h1>
       </header>
 
       <div className={click ? 'flash-card flipped' : 'flash-card'}>
